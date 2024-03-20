@@ -1,0 +1,97 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	overflow-wrap: break-word;
+}
+:root {
+	--terminal_background: #000000;
+	--terminal_foreground: #ffffff;
+	--terminal_font: "Courier New", monospace;
+	--terminal_accentground: #255491;
+	--terminal_accentweight: 900;
+	--preview_foreground: #000000;
+	--preview_background: #ffffff;
+}
+body {
+	font-family: var(--terminal_font);
+	font-size: 1em;
+	display: flex;
+	overflow: hidden;
+}
+body,
+html {
+	height: 100%;
+}
+p {
+	line-height: 1.3em;
+}
+div.terminal,
+div.preview {
+	flex: 1;
+	padding: 1em 1em;
+	max-width: 50%;
+	max-height: 100%;
+}
+
+div.terminal {
+	background-color: var(--terminal_background);
+	color: var(--terminal_foreground);
+	border-right: 1px solid #ffffff;
+	height: 100%;
+}
+
+div.preview {
+	background-color: var(--preview_background);
+	color: var(--preview_foreground);
+	border-left: 1px solid #ffffff;
+	height: 100%;
+	padding-top: 1em;
+}
+
+/* em are for emphasis */
+em {
+	color: var(--terminal_accentground);
+	font-weight: var(--terminal_accentweight);
+}
+input.command {
+	background-color: var(--terminal_background);
+	color: var(--terminal_foreground);
+	border: none;
+	box-sizing: border-box;
+	caret-color: white;
+	outline: none;
+	font-size: 1em;
+	width: 50%;
+	position: relative;
+	font-family: var(--terminal_font);
+}
+div.cover-photo {
+	height: 15.5em;
+	border-radius: 2.5em;
+	background: url("prime-cover.png") no-repeat center top;
+	background-position: 0% 20%;
+	background-attachment: scroll;
+	background-size: cover;
+}
+div.profile {
+	transform: translate(2em, 12em);
+	display: flex;
+}
+div.profile .title {
+	transform: translate(0.5em, 3.7em);
+}
+div.profile-photo {
+	height: 10em;
+	width: 10em;
+	/* outline: 10px solid #ffffff; */
+	border: 10px solid #ffffff;
+	border-radius: 50%;
+	background: url("ThePrimotionStudio.png") no-repeat center top;
+	/* background-position: 0% 20%; */
+	background-attachment: scroll;
+	background-size: cover;
+}
+div.preview-body {
+	margin-top: 7em;
+}
