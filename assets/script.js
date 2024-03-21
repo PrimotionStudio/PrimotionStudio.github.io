@@ -14,6 +14,7 @@ setInterval(function () {
 // Ensures that the user can see where the input field is
 window.onload = function () {
 	document.getElementById("command").focus();
+	document.getElementById("home").style.display = "block";
 };
 // even when the whole html body is clicked
 document.getElementById("body").addEventListener("click", function () {
@@ -59,7 +60,7 @@ const command = document.getElementById("command");
 command.addEventListener("keydown", function (event) {
 	// Check if the key pressed is the Enter key (key code 13)
 	if (event.key === "Enter") {
-		const cmd = command.value;
+		const cmd = command.value.toLowerCase();
 		switch (cmd) {
 			case "login":
 				let name = prompt("What is your name?");
@@ -70,6 +71,34 @@ command.addEventListener("keydown", function (event) {
 			case "logout":
 				localStorage.removeItem("userName");
 				window.location.reload();
+				break;
+			case "1":
+			case "home":
+				document.getElementById("home").style.display = "block";
+				document.getElementById("about").style.display = "none";
+				document.getElementById("career").style.display = "none";
+				document.getElementById("contact").style.display = "none";
+				break;
+			case "2":
+			case "about":
+				document.getElementById("home").style.display = "none";
+				document.getElementById("about").style.display = "block";
+				document.getElementById("career").style.display = "none";
+				document.getElementById("contact").style.display = "none";
+				break;
+			case "3":
+			case "career":
+				document.getElementById("home").style.display = "none";
+				document.getElementById("about").style.display = "none";
+				document.getElementById("career").style.display = "career";
+				document.getElementById("contact").style.display = "none";
+				break;
+			case "4":
+			case "contact":
+				document.getElementById("home").style.display = "none";
+				document.getElementById("about").style.display = "none";
+				document.getElementById("career").style.display = "none";
+				document.getElementById("contact").style.display = "block";
 				break;
 
 			default:

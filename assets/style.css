@@ -95,3 +95,9 @@ div.profile-photo {
 div.preview-body {
 	margin-top: 7em;
 }
+div#home,
+div#about,
+div#career,
+div#contact {
+	display: none;
+}
