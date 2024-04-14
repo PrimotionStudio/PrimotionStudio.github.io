@@ -4,107 +4,128 @@ if (userName) {
 } else {
 	document.getElementById("user").innerHTML = "anonymous";
 }
-
-// Generate the date and time that is seen on the heading
-// Update the date every second
 setInterval(function () {
 	document.getElementById("current_date").innerHTML = new Date();
 }, 1000);
 
-// Ensures that the user can see where the input field is
 window.onload = function () {
 	document.getElementById("command").focus();
 	document.getElementById("home").style.display = "block";
 };
-// even when the whole html body is clicked
 document.getElementById("body").addEventListener("click", function () {
 	document.getElementById("command").focus();
 });
 
 function updateTimeCounter() {
-	// Get current time
 	let currentTime = new Date();
-	// Get the stored start time from local storage
 	let storedStartTime = sessionStorage.getItem("startTime");
-	// If start time is not stored, set it to the current time
 	if (!storedStartTime) {
 		storedStartTime = currentTime;
 		sessionStorage.setItem("startTime", storedStartTime);
 	} else {
-		// Convert stored start time from string to Date object
 		storedStartTime = new Date(storedStartTime);
 	}
-	// Calculate the time difference between current time and the stored start time
 	let timeDiff = currentTime - storedStartTime;
-	// Calculate seconds, minutes, and hours
 	let seconds = Math.floor((timeDiff / 1000) % 60);
 	let minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
 	let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-	// Format the time counter
 	let timeCounter = `${hours.toString().padStart(2, "0")}:${minutes
 		.toString()
 		.padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-	// Display the time counter
 	counterElement.textContent = `Time on site: ${timeCounter}`;
 }
-// Get the element where the counter will be displayed
 let counterElement = document.getElementById("counter");
-// Call updateTimeCounter function initially to display the time on site
 updateTimeCounter();
-// Update the time counter every second
 setInterval(updateTimeCounter, 1000);
 
 // get user input
 const command = document.getElementById("command");
-// Add event listener to the input field
+const linuxCommands = [
+	"ls",
+	"cd",
+	"pwd",
+	"mkdir",
+	"rmdir",
+	"touch",
+	"rm",
+	"cp",
+	"mv",
+	"chmod",
+	"chown",
+	"grep",
+	"cat",
+	"head",
+	"tail",
+	"chmod",
+	"ssh",
+	"sudo",
+];
 command.addEventListener("keydown", function (event) {
-	// Check if the key pressed is the Enter key (key code 13)
 	if (event.key === "Enter") {
-		const cmd = command.value.toLowerCase();
-		switch (cmd) {
-			case "login":
-				let name = prompt("What is your name?");
-				name = name.toLowerCase().replace(/\s/g, "");
-				localStorage.setItem("userName", name);
-				window.location.reload();
-				break;
-			case "logout":
-				localStorage.removeItem("userName");
-				window.location.reload();
-				break;
-			case "1":
-			case "home":
-				document.getElementById("home").style.display = "block";
-				document.getElementById("about").style.display = "none";
-				document.getElementById("career").style.display = "none";
-				document.getElementById("contact").style.display = "none";
-				break;
-			case "2":
-			case "about":
-				document.getElementById("home").style.display = "none";
-				document.getElementById("about").style.display = "block";
-				document.getElementById("career").style.display = "none";
-				document.getElementById("contact").style.display = "none";
-				break;
-			case "3":
-			case "career":
-				document.getElementById("home").style.display = "none";
-				document.getElementById("about").style.display = "none";
-				document.getElementById("career").style.display = "career";
-				document.getElementById("contact").style.display = "none";
-				break;
-			case "4":
-			case "contact":
-				document.getElementById("home").style.display = "none";
-				document.getElementById("about").style.display = "none";
-				document.getElementById("career").style.display = "none";
-				document.getElementById("contact").style.display = "block";
-				break;
-
-			default:
-				break;
+		const cmd = command.value.toLowerCase().trim();
+		if (linuxCommands.includes(cmd.split(" ")[0])) {
+			alert("Ahahaha, I can't be hacked!");
+		} else if (
+			![
+				"home",
+				"about",
+				"contact",
+				"career",
+				"login",
+				"logout",
+				"1",
+				"2",
+				"3",
+				"4",
+			].includes(cmd)
+		) {
+			alert("Awwwwn I don't know that command");
+		} else {
+			switch (cmd) {
+				case "login":
+					let name = prompt("What is your name?");
+					name = name.toLowerCase().replace(/\s/g, "");
+					localStorage.setItem("userName", name);
+					window.location.reload();
+					break;
+				case "logout":
+					localStorage.removeItem("userName");
+					window.location.reload();
+					break;
+				case "1":
+				case "home":
+				default:
+					document.getElementById("directory").innerHTML = "home";
+					document.getElementById("home").style.display = "block";
+					document.getElementById("about").style.display = "none";
+					document.getElementById("career").style.display = "none";
+					document.getElementById("contact").style.display = "none";
+					break;
+				case "2":
+				case "about":
+					document.getElementById("directory").innerHTML = "about";
+					document.getElementById("home").style.display = "none";
+					document.getElementById("about").style.display = "block";
+					document.getElementById("career").style.display = "none";
+					document.getElementById("contact").style.display = "none";
+					break;
+				case "3":
+				case "career":
+					document.getElementById("directory").innerHTML = "career";
+					document.getElementById("home").style.display = "none";
+					document.getElementById("about").style.display = "none";
+					document.getElementById("career").style.display = "career";
+					document.getElementById("contact").style.display = "none";
+					break;
+				case "4":
+				case "contact":
+					document.getElementById("directory").innerHTML = "contact";
+					document.getElementById("home").style.display = "none";
+					document.getElementById("about").style.display = "none";
+					document.getElementById("career").style.display = "none";
+					document.getElementById("contact").style.display = "block";
+					break;
+			}
 		}
-		// Show an alert with the content of the input
-		// alert(command.value);
 	}
 });

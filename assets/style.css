@@ -92,7 +92,7 @@ div.profile-photo {
 	background-attachment: scroll;
 	background-size: cover;
 }
-div.preview-body {
+div.preview-body p {
 	margin-top: 7em;
 }
 div#home,
