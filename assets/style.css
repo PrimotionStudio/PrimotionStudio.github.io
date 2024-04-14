@@ -101,3 +101,63 @@ div#career,
 div#contact {
 	display: none;
 }
+
+div.form-input {
+	display: flex;
+	flex-direction: column;
+	margin: 1rem 2rem;
+}
+div.form-input label {
+	font-size: 1em;
+}
+div.form-input input, div.form-input textarea {
+	padding: 0.5em;
+	font-size: 1em;
+	resize: none;
+}
+div._profile {
+	transform: translate(2em, 0em);
+	display: flex;
+}
+div._profile ._title {
+	transform: translate(0.5em, 3.7em);
+}
+div.photo {
+	height: 10em;
+	width: 10em;
+	outline: 10px solid #fdfdfd;
+	border: 10px solid #ffffff;
+	border-radius: 50%;
+	background: url("prime-cover.png") no-repeat center top;
+	/* background-position: 0% 20%; */
+	background-attachment: scroll;
+	background-size: cover;
+}
+div.about {
+	margin-top: 1em;
+}
+div.pre {
+	margin-top: 1em;
+	text-align: center;
+}
+div.career {
+	margin: 1em 3em;
+}
+div.experience {
+	margin-top: 2em;
+	padding-bottom: 1em;
+	border-bottom: 2px dashed grey;
+}
+form button[type="submit"] {
+	width: 7em;
+	height: 2.5em;
+	font-size: 1em;
+	font-family: 'Courier New', Courier, monospace;
+	margin-left: 2rem;
+	background-color: rgba(0, 120, 0);
+	border: none;
+	color: #ffffff;
+}
+form button[type="submit"]:hover {
+	background-color: rgba(0, 100, 0);
+}

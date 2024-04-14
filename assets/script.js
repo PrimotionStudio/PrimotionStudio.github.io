@@ -12,7 +12,7 @@ window.onload = function () {
 	document.getElementById("command").focus();
 	document.getElementById("home").style.display = "block";
 };
-document.getElementById("body").addEventListener("click", function () {
+document.querySelector(".terminal").addEventListener("click", function () {
 	document.getElementById("command").focus();
 });
 
@@ -114,7 +114,7 @@ command.addEventListener("keydown", function (event) {
 					document.getElementById("directory").innerHTML = "career";
 					document.getElementById("home").style.display = "none";
 					document.getElementById("about").style.display = "none";
-					document.getElementById("career").style.display = "career";
+					document.getElementById("career").style.display = "block";
 					document.getElementById("contact").style.display = "none";
 					break;
 				case "4":
