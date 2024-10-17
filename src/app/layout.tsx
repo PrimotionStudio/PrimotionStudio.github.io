@@ -26,14 +26,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <header>
-        <Image
-          src="/assets/images/ThePrimotionStudio.png"
-          alt="The Primotion Studio Logo"
-          width={150}
-          height={50}
-        />
-      </header>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
