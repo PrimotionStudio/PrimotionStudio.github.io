@@ -1,101 +1,150 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect, useRef, useState } from 'react';
 
-export default function Home() {
+const Home = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [currentDate, setCurrentDate] = useState<string | null>(null);
+  const [timeOnSite, setTimeOnSite] = useState(0);
+  const [command, setCommand] = useState("");
+  const [username, setUsername] = useState("anonymous");
+
+  const handleDivClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+  useEffect(() => {
+    const user = localStorage.getItem('terminalPortfolioProfile');
+    if (user) {
+      setUsername(user);
+    }
+    const savedTime = sessionStorage.getItem('timeOnSite');
+    if (savedTime) {
+      setTimeOnSite(parseInt(savedTime)); // Load the saved time
+    }
+    const timer = setInterval(() => {
+      setCurrentDate(new Date().toString());
+
+      setTimeOnSite((prevTime) => {
+        const updatedTime = prevTime + 1;
+        sessionStorage.setItem('timeOnSite', updatedTime.toString());
+        return updatedTime;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const formatTime = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `Time on site: ${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
+
+
+  const linuxCommands = [
+    "ls",
+    "cd",
+    "pwd",
+    "mkdir",
+    "rmdir",
+    "touch",
+    "rm",
+    "cp",
+    "mv",
+    "chmod",
+    "chown",
+    "grep",
+    "cat",
+    "head",
+    "tail",
+    "chmod",
+    "ssh",
+    "sudo",
+  ];
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === "Enter") {
+      const cmd = command.toLowerCase().trim();
+      setCommand("");
+      switch (cmd) {
+        case 'login':
+          let name = prompt("What is your name?");
+          name = name ? name.toLowerCase().replace(/\s/g, "") : '';
+          localStorage.setItem("terminalPortfolioProfile", name);
+          setUsername(name);
+          break;
+
+        case 'logout':
+          localStorage.removeItem("terminalPortfolioProfile");
+          setUsername("anonymous");
+          break;
+
+        default:
+          alert("I don't know that command");
+          break;
+      }
+      if (linuxCommands.includes(cmd)) {
+        alert("Ahahaha, I can't be hacked!");
+      }
+    };
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex h-screen flex-col md:flex-row">
+      <div className="w-full md:w-2/5 flex flex-col justify-start items-start gap-y-1 p-3 font-xs md:font-md">
+        <p>Martins Okanlawon - Portfolio Terminal</p>
+        <div className='hidden md:block'>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <p>Alias: Prime, The Primotion Studio</p>
+          <p>Version 2.3.4</p>
+          <p>Date: <span id="current_date">{currentDate ? currentDate : "Loading..."}</span></p>
+          <p>This is the virtual portfolio console of Prime.</p>
+          <br />
+          <p>Type 'login' to login a personalized console.</p>
+          <p>Type 'logout' to opt out of your personalized console.</p>
+          <br />
+          <p>1) <em>home</em> - A little bit about myself</p>
+          <p>2) <em>about</em> - A little more-bit about myself</p>
+          <p>3) <em>career</em> - My skills, projects, careers & experiences</p>
+          <p>4) <em>contact</em> - You wanna hire me? Contact Me!!! (Yippie&#x1F643; !)</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <p id="counter">{formatTime(timeOnSite)}</p>
+        <div
+          className="command-box flex-1 w-full"
+          onClick={handleDivClick}>
+          <p className='flex'>┌──(
+            <em>
+              <span id="user">{username}</span>@theprimotionstudio
+            </em>
+            )<span className='hidden md:block'>-[~/
+              <span id="directory">home</span>
+              ]
+            </span>
+          </p>
+          <p>
+            └─$&nbsp;
+            <input
+              type="text"
+              id="command"
+              className="command bg-inherit focus:border-none focus:outline-none w-10/12"
+              name="command"
+              value={command}
+              onChange={(e) => setCommand(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder='Type `help` or `?` for help'
+              ref={inputRef}
+            />
+          </p>
+        </div>
+      </div>
+      <div className="w-full md:w-3/5 flex flex-col bg-white justify-center items-center rounded-t-3xl md:rounded-t-none absolute md:relative bottom-0 md:top-0 h-4/5 md:h-full">
+        <p className='text-gray-950'>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut at facere porro, sint sapiente quos quas necessitatibus ab dolores repudiandae iusto aspernatur enim modi explicabo nam sequi ipsam molestiae dignissimos omnis. Quam recusandae labore vel eligendi. Earum inventore, et est assumenda eius eum praesentium? Autem rerum vero voluptatum fugit?
+        </p>
+      </div>
     </div>
   );
-}
+};
+
+export default Home;
