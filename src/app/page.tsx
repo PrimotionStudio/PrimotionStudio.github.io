@@ -11,6 +11,7 @@ const Home = () => {
   const [timeOnSite, setTimeOnSite] = useState(0);
   const [command, setCommand] = useState("");
   const [username, setUsername] = useState("anonymous");
+  const [help, setHelp] = useState(false);
 
   const handleDivClick = () => {
     if (inputRef.current) {
@@ -81,6 +82,11 @@ const Home = () => {
         case 'logout':
           localStorage.removeItem("terminalPortfolioProfile");
           setUsername("anonymous");
+          break;
+
+        case '?':
+        case 'help':
+          setHelp(true);
           break;
 
         default:
@@ -179,9 +185,16 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="mt-20 md:mt-24 mx-5">
+        <div className="mt-20 md:mt-24 mx-5 overflow-y-scroll flex-1">
           <p className='text-gray-950'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut at facere porro, sint sapiente quos quas necessitatibus ab dolores repudiandae iusto aspernatur enim modi explicabo nam sequi ipsam molestiae dignissimos omnis. Quam recusandae labore vel eligendi. Earum inventore, et est assumenda eius eum praesentium? Autem rerum vero voluptatum fugit?
+            I am a highly motivated and versatile programmer with over 5 years of
+            experience in full-stack development technologies, seeking a software
+            engineering career. I am proficient in PHP, JavaScript/Typescript, C, Python,
+            and various scripting languages. I also possess strong database management
+            skills. In all my endeavors, I aim to create solutions as often as possible, learn
+            from every mistake I encounter and look at the bigger picture in every situation
+            from every angle. I also look forward to bringing all my expertise and more to
+            the team as well as learning from them
           </p>
         </div>
       </div>
