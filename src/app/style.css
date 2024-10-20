@@ -1,0 +1,28 @@
+.cover-photo {
+	width: 100%;
+	border-bottom-left-radius: 2em;
+	border-bottom-right-radius: 2em;
+	background-position: 0% 20%;
+	background-attachment: scroll;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+/* div.profile {
+	transform: translate(2em, 12em);
+	display: flex;
+}
+div.profile .title {
+	transform: translate(0.5em, 3.7em);
+}
+div.profile-photo { */
+/* height: 10em; */
+/* width: 10em; */
+/* outline: 10px solid #ffffff; */
+/* border: 10px solid #ffffff;
+	border-radius: 50%;
+	background-color: #ffffff; */
+/* background-position: 0% 20%; */
+/* background-attachment: scroll;
+	background-size: cover; */
+/* } */

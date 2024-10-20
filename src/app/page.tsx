@@ -1,4 +1,8 @@
 "use client";
+import "./style.css";
+// import Image from 'next/image';
+import primeCoverBackground from '@/public/assets/images/prime-cover.png';
+import profilePhoto from '@/public/assets/images/ThePrimotionStudio.png';
 import React, { useEffect, useRef, useState } from 'react';
 
 const Home = () => {
@@ -138,12 +142,50 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <div className="w-full md:w-3/5 flex flex-col bg-white justify-center items-center rounded-t-3xl md:rounded-t-none absolute md:relative bottom-0 md:top-0 h-4/5 md:h-full">
-        <p className='text-gray-950'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut at facere porro, sint sapiente quos quas necessitatibus ab dolores repudiandae iusto aspernatur enim modi explicabo nam sequi ipsam molestiae dignissimos omnis. Quam recusandae labore vel eligendi. Earum inventore, et est assumenda eius eum praesentium? Autem rerum vero voluptatum fugit?
-        </p>
+      <div className="w-full md:w-3/5 flex flex-col bg-white items-center rounded-t-3xl md:rounded-t-none absolute md:relative bottom-0 md:top-0 h-4/5 md:h-full text-gray-900">
+        <div className="cover-photo h-48 md:h-64 rounded-t-3xl" style={{
+          backgroundImage: `url('${primeCoverBackground.src}')`,
+        }}>
+          <div className="profile flex items-end">
+            <div
+              style={{
+                backgroundImage: `url('${profilePhoto.src})`
+              }}
+              className='
+              flex-none
+                translate-y-40
+                md:translate-y-48
+                ml-5
+                md:ml-10
+                rounded-full
+                md:h-36
+                md:w-36
+                h-24
+                w-24
+                bg-white
+                border
+                '
+            >
+            </div>
+            <div className="title flex-1
+                md:ml-5
+                ml-3
+                translate-y-40
+            ">
+              <h1>Martins Okanlawon</h1>
+              <p className="job-title">
+                Software Engineer | Ethical Hacker (Pentester)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-20 md:mt-24 mx-5">
+          <p className='text-gray-950'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aut at facere porro, sint sapiente quos quas necessitatibus ab dolores repudiandae iusto aspernatur enim modi explicabo nam sequi ipsam molestiae dignissimos omnis. Quam recusandae labore vel eligendi. Earum inventore, et est assumenda eius eum praesentium? Autem rerum vero voluptatum fugit?
+          </p>
+        </div>
       </div>
-    </div>
+    </div >
   );
 };
 
