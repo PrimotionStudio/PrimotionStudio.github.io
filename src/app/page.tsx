@@ -5,6 +5,17 @@ import primeCoverBackground from '@/public/assets/images/prime-cover.png';
 import profilePhoto from '@/public/assets/images/ThePrimotionStudio.png';
 import React, { useEffect, useRef, useState } from 'react';
 
+export const Modal = () => {
+  return (
+    <div className="modal-backdrop flex justify-center items-center">
+      <div className="modal w-10/12 md:w-1/3 bg-white rounded">
+        <h3>Help Dialog Box</h3>
+      </div>
+    </div>
+  );
+};
+
+
 const Home = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [currentDate, setCurrentDate] = useState<string | null>(null);
@@ -198,6 +209,7 @@ const Home = () => {
           </p>
         </div>
       </div>
+      <Modal />
     </div >
   );
 };
