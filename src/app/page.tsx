@@ -121,7 +121,7 @@ const Home = () => {
 
   return (
     <div className="flex h-screen flex-col md:flex-row">
-      <div className="w-full md:w-2/5 flex flex-col justify-start items-start gap-y-1 p-3 font-xs md:font-md">
+      <div className="terminal w-full md:w-2/5 flex flex-col justify-start items-start gap-y-1 p-3 font-xs md:font-md">
         <p>Martins Okanlawon - Portfolio Terminal</p>
         <div className='hidden md:block'>
 
@@ -205,7 +205,15 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="mt-20 md:mt-24 mx-5 overflow-y-scroll flex-1">
+        <div className="mt-20 md:mt-24 mx-5 overflow-y-scroll flex-1
+         [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:rounded-full
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500
+        ">
           <p className='text-gray-950'>
             I am a highly motivated and versatile programmer with over 5 years of
             experience in full-stack development technologies, seeking a software

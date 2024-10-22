@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap');
 
 .space-mono-regular {
 	font-family: 'Space Mono', monospace;
@@ -28,20 +29,37 @@
 	font-style: italic;
 }
 
+.recursive-font {
+	font-family: 'Recursive', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-variation-settings: 'slnt' 0, 'CASL' 0, 'CRSV' 0.5, 'MONO' 0;
+}
+
 :root {
 	--terminal_accentground: #255491;
 	--terminal_accentweight: 900;
 }
 
 body {
-	font-family: 'Space Mono', monospace;
-	font-weight: 400;
+	font-family: Recursive, 'Space Mono', monospace;
+	font-weight: 500;
 	font-style: normal;
+}
+body .terminal {
+	font-weight: 600;
+	font-size: 0.875rem;
+}
+
+.terminal p {
+	line-height: 1.25rem;
 }
 
 p {
-	font-size: 0.875rem; /* 14px */
-	line-height: 1.25rem; /* 20px */
+	font-size: 15px;
+	/* line-height: 1.25rem; */
+	line-height: 1.3rem;
 }
 
 em {
