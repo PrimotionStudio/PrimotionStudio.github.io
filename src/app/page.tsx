@@ -1,38 +1,15 @@
 "use client";
-import { Separator } from '@/components/ui/separator';
-import "./style.css";
+import "@/app/style.css";
 // import Image from 'next/image';
 import primeCoverBackground from '@/public/assets/images/prime-cover.png';
 import profilePhoto from '@/public/assets/images/ThePrimotionStudio.png';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-
-export const Modal: React.FC<({ setShowHelp: (state: boolean) => void; })> = ({ setShowHelp }: { setShowHelp: (state: boolean) => void; }) => {
-  return (
-    <div className="modal-backdrop flex justify-center items-center">
-      <div className="modal p-3 w-10/12 md:w-1/3 bg-white rounded text-gray-900">
-        <h3 className='text-gray-900'>Help Dialog Box</h3>
-        <Separator />
-        <p>This is helper box that shows how to use the terminal</p>
-        <br />
-        <p>Type <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">login</span> to login a personalized console.</p>
-        <p>Type <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">logout</span> to opt out of your personalized console.</p>
-        <br />
-        <p>1) <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">home</span> - A little bit about myself</p>
-        <p>2) <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">about</span> - A little more-bit about myself</p>
-        <p>3) <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">career</span> - My skills, projects, careers & experiences</p>
-        <p>4) <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">contact</span> - You wanna hire me? Contact Me!!! (Yippie!&#x1F643;)</p>
-        {/* <Separator /> */}
-        <Button variant={'secondary'} onClick={() => setShowHelp(false)}
-          className='mt-1 rounded'
-        >Close</Button>
-      </div>
-    </div >
-  );
-};
+import { useRouter } from 'next/navigation';
+import { Modal } from '@/components/layout/modal';
 
 
 const Home = () => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [currentDate, setCurrentDate] = useState<string | null>(null);
   const [timeOnSite, setTimeOnSite] = useState(0);
@@ -116,6 +93,22 @@ const Home = () => {
           setHelp(true);
           break;
 
+        case 'home':
+          router.push('/home');
+          break;
+
+        case 'about':
+          router.push('/about');
+          break;
+
+        case 'career':
+          router.push('/career');
+          break;
+
+        case 'contact':
+          router.push('/contact');
+          break;
+
         default:
           alert("I don't know that command");
           break;
@@ -182,7 +175,8 @@ const Home = () => {
           <div className="profile flex items-end">
             <div
               style={{
-                backgroundImage: `url('${profilePhoto.src})`
+                backgroundImage: `url('${profilePhoto.src}')`,
+                backgroundSize: 'cover',
               }}
               className='
               flex-none
@@ -195,8 +189,7 @@ const Home = () => {
                 md:w-36
                 h-24
                 w-24
-                bg-white
-                border
+                shadow-md
                 '
             >
             </div>
