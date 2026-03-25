@@ -1,131 +1,80 @@
-const userName = localStorage.getItem("userName");
-if (userName) {
-	document.getElementById("user").innerHTML = userName;
-} else {
-	document.getElementById("user").innerHTML = "anonymous";
-}
-setInterval(function () {
-	document.getElementById("current_date").innerHTML = new Date();
-}, 1000);
+document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-link, .nav-link-sidebar, .mobile-nav-link");
+    const sections = document.querySelectorAll(".content-section");
+    const uptimeElement = document.getElementById("uptime");
 
-window.onload = function () {
-	document.getElementById("command").focus();
-	document.getElementById("home").style.display = "block";
-};
-document.querySelector(".terminal").addEventListener("click", function () {
-	document.getElementById("command").focus();
-});
+    // Navigation logic
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute("data-section");
+            if (sectionId) {
+                showSection(sectionId);
+            }
+        });
+    });
 
-function updateTimeCounter() {
-	let currentTime = new Date();
-	let storedStartTime = sessionStorage.getItem("startTime");
-	if (!storedStartTime) {
-		storedStartTime = currentTime;
-		sessionStorage.setItem("startTime", storedStartTime);
-	} else {
-		storedStartTime = new Date(storedStartTime);
-	}
-	let timeDiff = currentTime - storedStartTime;
-	let seconds = Math.floor((timeDiff / 1000) % 60);
-	let minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
-	let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-	let timeCounter = `${hours.toString().padStart(2, "0")}:${minutes
-		.toString()
-		.padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-	counterElement.textContent = `Time on site: ${timeCounter}`;
-}
-let counterElement = document.getElementById("counter");
-updateTimeCounter();
-setInterval(updateTimeCounter, 1000);
+    function showSection(sectionId) {
+        sections.forEach(section => {
+            if (section.id === `section-${sectionId}`) {
+                section.classList.remove("hidden");
+            } else {
+                section.classList.add("hidden");
+            }
+        });
 
-// get user input
-const command = document.getElementById("command");
-const linuxCommands = [
-	"ls",
-	"cd",
-	"pwd",
-	"mkdir",
-	"rmdir",
-	"touch",
-	"rm",
-	"cp",
-	"mv",
-	"chmod",
-	"chown",
-	"grep",
-	"cat",
-	"head",
-	"tail",
-	"chmod",
-	"ssh",
-	"sudo",
-];
-command.addEventListener("keydown", function (event) {
-	if (event.key === "Enter") {
-		const cmd = command.value.toLowerCase().trim();
-		if (linuxCommands.includes(cmd.split(" ")[0])) {
-			alert("Ahahaha, I can't be hacked!");
-		} else if (
-			![
-				"home",
-				"about",
-				"contact",
-				"career",
-				"login",
-				"logout",
-				"1",
-				"2",
-				"3",
-				"4",
-			].includes(cmd)
-		) {
-			alert("Awwwwn I don't know that command");
-		} else {
-			switch (cmd) {
-				case "login":
-					let name = prompt("What is your name?");
-					name = name.toLowerCase().replace(/\s/g, "");
-					localStorage.setItem("userName", name);
-					window.location.reload();
-					break;
-				case "logout":
-					localStorage.removeItem("userName");
-					window.location.reload();
-					break;
-				case "1":
-				case "home":
-				default:
-					document.getElementById("directory").innerHTML = "home";
-					document.getElementById("home").style.display = "block";
-					document.getElementById("about").style.display = "none";
-					document.getElementById("career").style.display = "none";
-					document.getElementById("contact").style.display = "none";
-					break;
-				case "2":
-				case "about":
-					document.getElementById("directory").innerHTML = "about";
-					document.getElementById("home").style.display = "none";
-					document.getElementById("about").style.display = "block";
-					document.getElementById("career").style.display = "none";
-					document.getElementById("contact").style.display = "none";
-					break;
-				case "3":
-				case "career":
-					document.getElementById("directory").innerHTML = "career";
-					document.getElementById("home").style.display = "none";
-					document.getElementById("about").style.display = "none";
-					document.getElementById("career").style.display = "block";
-					document.getElementById("contact").style.display = "none";
-					break;
-				case "4":
-				case "contact":
-					document.getElementById("directory").innerHTML = "contact";
-					document.getElementById("home").style.display = "none";
-					document.getElementById("about").style.display = "none";
-					document.getElementById("career").style.display = "none";
-					document.getElementById("contact").style.display = "block";
-					break;
-			}
-		}
-	}
+        // Update active link styles
+        updateActiveLinks(sectionId);
+    }
+
+    function updateActiveLinks(sectionId) {
+        // Top Nav Links
+        document.querySelectorAll(".nav-link").forEach(link => {
+            if (link.getAttribute("data-section") === sectionId) {
+                link.classList.add("text-[#ecffe3]", "border-b-2", "border-[#ecffe3]");
+                link.classList.remove("text-[#abc7ff]/60");
+            } else {
+                link.classList.remove("text-[#ecffe3]", "border-b-2", "border-[#ecffe3]");
+                link.classList.add("text-[#abc7ff]/60");
+            }
+        });
+
+        // Desktop Sidebar Links ONLY
+        document.querySelectorAll("aside.w-64 .nav-link-sidebar").forEach(link => {
+            if (link.getAttribute("data-section") === sectionId) {
+                link.classList.add("bg-[#abc7ff]/10", "text-[#ecffe3]", "font-bold", "border-l-4", "border-[#ecffe3]", "pl-3");
+                link.classList.remove("text-[#abc7ff]/50", "pl-4");
+            } else {
+                link.classList.remove("bg-[#abc7ff]/10", "text-[#ecffe3]", "font-bold", "border-l-4", "border-[#ecffe3]", "pl-3");
+                link.classList.add("text-[#abc7ff]/50", "pl-4");
+            }
+        });
+
+        // Mobile Nav Icons
+        document.querySelectorAll("nav.md\\:hidden .mobile-nav-link").forEach(link => {
+            if (link.getAttribute("data-section") === sectionId) {
+                link.classList.add("text-primary");
+                link.classList.remove("text-[#abc7ff]/50");
+                if (link.classList.contains("bg-primary")) {
+                   link.classList.add("shadow-[0_0_20px_rgba(171,199,255,0.6)]");
+                }
+            } else {
+                link.classList.remove("text-primary", "shadow-[0_0_20px_rgba(171,199,255,0.6)]");
+                link.classList.add("text-[#abc7ff]/50");
+            }
+        });
+    }
+
+    // Uptime counter
+    let startTime = Date.now();
+    setInterval(() => {
+        let diff = Date.now() - startTime;
+        let seconds = Math.floor((diff / 1000) % 60);
+        let minutes = Math.floor((diff / (1000 * 60)) % 60);
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        uptimeElement.textContent = `UPTIME: ${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }, 1000);
+
+    // Initial state
+    showSection("home");
 });
